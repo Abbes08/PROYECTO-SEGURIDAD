@@ -14,18 +14,18 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3 # Actualizado a v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3 # Actualizado a v3
         with:
-          node-version: '14' # Cambia la versión según tus necesidades
+          node-version: '20' # También puedes especificar Node 20 si tu proyecto es compatible
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: npm run build # Ajusta este comando según el script de build de tu proyecto
+        run: echo "No build step necessary" # Cambia o elimina este paso si tienes un comando de build
 
       - name: Deploy to Heroku
         env:
