@@ -1,0 +1,35 @@
+name: Deploy to Heroku
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # Cambia la versión según tus necesidades
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build # Ajusta este comando según el script de build de tu proyecto
+
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku git:remote -a nombre-de-tu-app-en-heroku
+          git push heroku main
