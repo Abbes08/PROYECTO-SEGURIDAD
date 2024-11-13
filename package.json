@@ -11,6 +11,6 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "mocha"
+    "test":  "npx mocha"
   }
 }
