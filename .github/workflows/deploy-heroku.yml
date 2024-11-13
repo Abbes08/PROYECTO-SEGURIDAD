@@ -14,18 +14,24 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3 # Actualizado a v3
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3 # Actualizado a v3
+        uses: actions/setup-node@v3
         with:
-          node-version: '20' # También puedes especificar Node 20 si tu proyecto es compatible
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: echo "No build step necessary" # Cambia o elimina este paso si tienes un comando de build
+        run: echo "No build step necessary"
+
+      - name: Install Chocolatey
+        run: Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+      - name: Install Heroku CLI
+        run: choco install heroku-cli -y
 
       - name: Deploy to Heroku
         env:
