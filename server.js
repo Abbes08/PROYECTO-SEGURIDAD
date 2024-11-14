@@ -49,6 +49,8 @@ let oidc = new ExpressOIDC({
   },
   appBaseUrl: 'http://localhost:3000'
 });
+// Usa oidc.router para manejar las rutas de autenticación
+app.use(oidc.router);
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
@@ -113,7 +115,7 @@ io.on('connection', function(socket){
 });
 
 // Middleware para manejar los errores
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
