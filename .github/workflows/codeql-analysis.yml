@@ -1,0 +1,41 @@
+name: "CodeQL SAST Analysis"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    # Ejecuta el análisis para PR en la rama principal
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 1 * * 0' # Análisis semanal, cada domingo a la 1 AM
+
+jobs:
+  analyze:
+    name: Analyze CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript' ] # Cambia según el lenguaje del proyecto
+        # Compatible con: 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Configura CodeQL para el análisis
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+
+    # Ejecuta el análisis de CodeQL
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        output: codeql-results.sarif
+        upload: true

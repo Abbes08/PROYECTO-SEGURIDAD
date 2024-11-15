@@ -16,14 +16,12 @@ let server = http.createServer(app);
 let io = socketIo(server);
 
 // Globals
-const OKTA_ISSUER_URI = "https://dev-67q2y0z3suia5ae2.us.auth0.com"
+const OKTA_ISSUER_URI = "https://dev-67q2y0z3suia5ae2.us.auth0.com";
 const OKTA_CLIENT_ID = "mlIokKRjb5CGf8FbKpDIOKE36e7BjDLA";
 const OKTA_CLIENT_SECRET = "5X_6rDr0vK5AnFMe058_ds7wP4MAvf8uB4rXkJpkIaHKpvssw69sUGcp6nABl1F0";
 const REDIRECT_URI = "http://localhost:3000/dashboard";
 const PORT = process.env.PORT || "3000";
 const SECRET = "hjsadfghjakshdfg87sd8f76s8d7f68s7f632342ug44gg423636346f"; // Dejar el secret así como está.
-
-//  Esto se los dará Okta.
 
 // Configuración de auth
 const config = {
@@ -72,28 +70,17 @@ app.use(session({
 // App routes
 
 app.get("/", (req, res) => {
-  
-  // Verificar si el usuario está autenticado
   if (req.oidc.isAuthenticated()) {
     res.redirect("/dashboard");
   } else {
-    // Si no está autenticado, renderiza la página de inicio o login
     res.render("index");
   }
 });
 
-// Ruta inicial: página de login
-app.get("/",  (req, res) => {
-  res.render("index");  
-});
-
-app.get("/dashboard", requiresAuth() ,(req, res) => {  
-  // if(req.oidc.isAuthenticated())
-  // {
-    var payload = Buffer.from(req.appSession.id_token.split('.')[1], 'base64').toString('utf-8');
-    const userInfo = JSON.parse(payload);
-    res.render("dashboard", { user: userInfo });
-  //}
+app.get("/dashboard", requiresAuth(), (req, res) => {  
+  var payload = Buffer.from(req.appSession.id_token.split('.')[1], 'base64').toString('utf-8');
+  const userInfo = JSON.parse(payload);
+  res.render("dashboard", { user: userInfo });
 });
 
 // Ruta protegida para acceder al chat
