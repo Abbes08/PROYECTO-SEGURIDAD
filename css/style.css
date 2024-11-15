@@ -5,3 +5,29 @@ h1 {
 .jumbotron {
   margin-top: 2em;
 }
+
+    /* Ajuste de mensajes */
+    #messages li { 
+        display: flex; 
+        align-items: center; 
+        margin: 6px 0; /* Espaciado reducido */
+        padding: 5px 12px; /* Padding reducido */
+        border-radius: 10px; /* Borde menos pronunciado */
+        max-width: 65%; /* Tamaño más pequeño */
+        font-size: 0.9rem; /* Tamaño de fuente reducido */
+    }
+    #messages .msg-username { 
+        font-weight: bold; 
+        color: #7289da; 
+        margin-right: 6px; /* Espacio reducido entre nombre y mensaje */
+    }
+    #messages .msg-user { 
+        align-self: flex-start; 
+        background-color: #50545b; 
+    }
+    #messages .msg-other { 
+        align-self: flex-end; 
+        background-color: #7289da; 
+        color: #fff; 
+    }
+
