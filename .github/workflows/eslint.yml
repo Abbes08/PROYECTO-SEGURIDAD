@@ -1,4 +1,4 @@
-name: ESLint and CodeQL Analysis
+name: ESLint Analysis and CodeQL
 
 on:
   push:
@@ -19,6 +19,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install Node.js and Dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
       - name: Install ESLint and SARIF Formatter
         run: |
           npm install eslint@8.10.0
@@ -29,7 +34,7 @@ jobs:
           SARIF_ESLINT_IGNORE_SUPPRESSED: "true"
         run: |
           npx eslint . \
-            --config eslint.config.mjs \
+            --config .eslintrc.js \
             --format @microsoft/eslint-formatter-sarif \
             --output-file eslint-results.sarif
 
