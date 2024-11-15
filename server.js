@@ -33,7 +33,7 @@ const config = {
   issuerBaseURL: 'https://dev-67q2y0z3suia5ae2.us.auth0.com',
 };
 
-let oidc = new ExpressOIDC({ // eslint-disable-line no-unused-vars
+let oidc = new ExpressOIDC({
   issuer: OKTA_ISSUER_URI,
   client_id: OKTA_CLIENT_ID,
   client_secret: OKTA_CLIENT_SECRET,
@@ -41,14 +41,12 @@ let oidc = new ExpressOIDC({ // eslint-disable-line no-unused-vars
   scope: 'openid profile',
   routes: {
     callback: {
-      path: '/callback',
-      defaultRedirect: "/dashboard"
+      path: '/callback',   // Ruta de callback
+      defaultRedirect: "/dashboard" // Redirige al dashboard después de la autenticación
     }
   },
   appBaseUrl: 'http://localhost:3000'
 });
-// Usa oidc.router para manejar las rutas de autenticación
-app.use(oidc.router);
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
@@ -70,17 +68,13 @@ app.use(session({
 }));
 
 // App routes
+
 app.get("/", (req, res) => {
   if (req.oidc.isAuthenticated()) {
     res.redirect("/dashboard");
   } else {
     res.render("index");
   }
-});
-
-// Ruta inicial: página de login
-app.get("/",  (req, res) => {
-  res.render("index");  
 });
 
 app.get("/dashboard", requiresAuth(), (req, res) => {  
@@ -106,7 +100,7 @@ io.on('connection', function(socket){
 });
 
 // Middleware para manejar los errores
-app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
