@@ -47,6 +47,8 @@ let oidc = new ExpressOIDC({ // eslint-disable-line no-unused-vars
   },
   appBaseUrl: 'http://localhost:3000'
 });
+// Usa oidc.router para manejar las rutas de autenticación
+app.use(oidc.router);
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
