@@ -1,107 +1,169 @@
 <!doctype html>
 <html lang="es">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>Bienvenido a No es UNAChat</title>
+    <title>Bienvenido a UNAChat</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font: 14px Helvetica, Arial; background-color: #f8f9fa; }
-        .chat-container { max-height: 50vh; overflow-y: auto; padding: 20px; border: 1px solid #ced4da; border-radius: 5px; background-color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 80px; }
-        .jumbotron { background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); padding: 30px; }
-        h1, h2 { color: #007bff; }
-        .info-item { font-size: 1.1rem; margin: 10px 0; color: #333; display: flex; align-items: center; }
-        .info-item i { margin-right: 10px; }
-        /* Ajustes para el formulario */
-        form { background: #343a40; padding: 15px; width: calc(100% - 30px); position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); max-width: 800px; display: flex; align-items: center; z-index: 10; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); }
-        form input, form button { border-radius: 20px; padding: 10px; }
-        form input { border: 1px solid #007bff; margin-right: 8px; }
-        form #nombre { width: 20%; }
-        form #m { flex-grow: 1; }
-        form button { background-color: #007bff; color: #fff; border: none; }
-        #messages { list-style-type: none; margin: 0; padding: 0; }
-        #messages li { padding: 10px; margin: 5px 0; border-radius: 5px; }
-        #messages li:nth-child(odd) { background: #e9ecef; }
-        #messages li:nth-child(even) { background: #f1f1f1; }
+        body, html { height: 100%; font-family: Arial, sans-serif; background-color: #2f3136; color: #d1d1d1; }
+
+        /* Navbar superior */
+        .navbar { background-color: #202225; padding: 0.5rem 1rem; }
+        .navbar a, .navbar a:hover { color: #d1d1d1; text-decoration: none; }
+        .navbar-brand { font-weight: bold; color: #7289da; }
+
+        /* Sidebar */
+        .sidebar { background-color: #36393f; width: 250px; padding: 20px; position: fixed; top: 56px; bottom: 0; left: 0; overflow-y: auto; }
+        .sidebar h3 { color: #7289da; }
+        .sidebar .user-info { font-size: 1rem; color: #b9bbbe; margin-bottom: 20px; }
+        .sidebar .user-info i { margin-right: 10px; color: #5865f2; }
+        .sidebar .logout-button { background-color: #5865f2; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; }
+        .logout-button { background-color: #5865f2; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; }
+        /* Chat container */
+        .chat-container { margin-left: 270px; margin-top: 20px; max-height: 80vh; overflow-y: auto; padding: 20px; border-radius: 8px; background-color: #36393f; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+        .welcome-message { background-color: #40444b; padding: 10px; border-radius: 10px; margin-bottom: 10px; text-align: center; color: #d1d1d1; }
+
+ /* Messages */
+ #messages { 
+        list-style-type: none; 
+        padding: 0; 
+    }
+    #messages li { 
+        display: block; /* Cambiar a bloque para que cada mensaje esté en su propia línea */
+        margin: 6px 0; 
+        padding: 8px 15px; 
+        border-radius: 10px; 
+        max-width: 70%; /* Limitar el ancho máximo del mensaje */
+        font-size: 0.9rem; 
+        word-wrap: break-word; /* Permitir que el texto largo se ajuste en varias líneas */
+        overflow-wrap: break-word;
+        clear: both; /* Asegurar que cada mensaje empiece en una nueva línea */
+    }
+    #messages .msg-username { 
+        font-weight: bold; 
+        margin-right: 6px; 
+    }
+    #messages .msg-user { 
+        background-color: #50545b; 
+        color: #d1d1d1;
+        text-align: left;
+        float: left; /* Alinear mensajes del usuario a la izquierda */
+    }
+    #messages .msg-other { 
+        background-color: #7289da; 
+        color: #fff;
+        text-align: left;
+        float: right; /* Alinear mensajes de otros a la derecha */
+    }
+
+
+        .chat-form { 
+        background: #33373d; /* Color de fondo más oscuro */
+        padding: 15px; /* Aumentar el padding */
+        width: calc(100% - 270px); /* Ajustar el ancho del formulario */
+        position: fixed; 
+        bottom: 0; 
+        left: 270px; 
+        display: flex; 
+        align-items: center; 
+        z-index: 10; 
+        border-top: 2px solid #2a2d32; /* Borde superior más grueso */
+    }
+    .chat-form input { 
+        background-color: #40444b; /* Fondo de los inputs más oscuro */
+        margin-right: 10px; /* Aumentar el margen entre campos */
+        border-radius: 5px; /* Borde más redondeado */
+        padding: 10px; /* Aumentar padding interno */
+        color: #d1d1d1; 
+        font-size: 1.1rem; /* Aumentar tamaño de fuente */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cambiar la fuente */
+        border: 1px solid #5865f2; /* Borde de los inputs */
+    }
+    .chat-form input::placeholder { 
+        color: #b9bbbe; /* Color del placeholder */
+    }
+    .chat-form #nombre { 
+        width: 150px; /* Aumentar el ancho del campo "Nombre" */
+    }
+    .chat-form #m { 
+        flex-grow: 1; /* Campo de mensaje toma el espacio restante */
+    }
+    .chat-form button { 
+        background-color: #7289da; /* Color de fondo del botón */
+        color: #ffffff; 
+        font-weight: bold; 
+        padding: 10px 20px; /* Botón más grande */
+        border-radius: 8px; /* Borde del botón más redondeado */
+        font-size: 1.1rem; /* Aumentar tamaño de fuente */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cambiar la fuente */
+        border: none; 
+        transition: background-color 0.3s; 
+    }
+    .chat-form button:hover { 
+        background-color: #5a6dbf; /* Color de fondo al pasar el cursor */
+    }
     </style>
 </head>
+
 <body>
-    <div class="container mt-4">
-        <h1 class="text-center mb-4">Bienvenido a "No es UNAChat"</h1>
-        <div class="jumbotron text-center">
-            <h2 class="mb-3">Información del Usuario</h2>
-            <ul class="list-unstyled">
-                <li class="info-item">
-                    <i class="fas fa-envelope text-primary"></i> 
-                    Su correo en Okta es: <b>{{user.email}}</b>
-                </li>
-                <li class="info-item">
-                    <i class="fas fa-user text-primary"></i> 
-                    Su nombre de usuario en Okta es: <b>{{user.nickname}}</b>
-                </li>
-            </ul>
-            <p class="mt-4">
-                Para desloguearse, de <a href="/logout" class="text-primary" style="text-decoration: underline;">click aquí</a>.
-            </p>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">UNAChat</a>
+        <div class="ml-auto d-flex align-items-center">
+            <span class="navbar-text mr-3">{{user.nickname}}</span> <!-- Nombre de usuario -->
+            <button class="logout-button" onclick="window.location.href='/logout';">Cerrar sesión</button>
+           
         </div>
-        
-        <div class="chat-container">
-            <ul id="messages" class="list-unstyled"></ul>
-        </div>
-        
-        <form action="">
-            <input id="nombre" class="form-control" autocomplete="off" placeholder="Nombre de usuario" />
-            <input id="m" class="form-control" autocomplete="off" placeholder="Escriba un mensaje" />
-            <button class="btn" type="submit">Enviar</button>
-        </form>
+    </nav>
+    
+
+    <div class="chat-container">
+        <div class="welcome-message">Bienvenido a UNAChat, puedes iniciar un chat</div>
+        <ul id="messages" class="list-unstyled"></ul>
     </div>
+
+    <div class="sidebar">
+        <h3>Información del Usuario</h3>
+        <p class="user-info"><i class="fas fa-envelope"></i> Correo: <b>{{user.email}}</b></p>
+        <p class="user-info"><i class="fas fa-user"></i> Usuario: <b>{{user.nickname}}</b></p>
+        <button class="logout-button" onclick="window.location.href='/logout';">Cerrar sesión</button>
+
+    </div>
+
+    <form action="" class="chat-form">
+        <input id="nombre" class="form-control" autocomplete="off" placeholder="Nombre" />
+        <input id="m" class="form-control" autocomplete="off" placeholder="Mensaje" />
+        <button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-        var colorHexTxt = "";
-
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        function isValidURL(url) {
-            var pattern = new RegExp('^(https?:\\/\\/)?' +
-                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' +
-                '((\\d{1,3}\\.){3}\\d{1,3}))' +
-                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
-                '(\\?[;&a-z\\d%_.~+=-]*)?' +
-                '(\\#[-a-z\\d_]*)?$', 'i');
-            return !!pattern.test(url);
-        }
-
-        function detectMediaType(url) {
-            if (url.match(/\.(jpeg|jpg|gif|png)$/i)) {
-                return 'image';
-            } else if (url.match(/\.(mp4|webm|ogg)$/i)) {
-                return 'video';
-            }
-            return 'text';
-        }
-
         $(function () {
             var socket = io();
+            var lastNombre = "";
+            var colorHexTxt = "";
+
+            // Generar color aleatorio
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
 
             $('form').submit(function () {
                 var nombreTxt = $('#nombre').val() || "Anónimo";
                 var mensajeTxt = $('#m').val();
 
-                if (!colorHexTxt) {
+                // Cambiar color si el nombre ha cambiado
+                if (nombreTxt !== lastNombre) {
                     colorHexTxt = getRandomColor();
+                    lastNombre = nombreTxt;
                 }
 
                 if (isValidURL(mensajeTxt)) {
@@ -114,21 +176,36 @@
                 }
 
                 var jsonMsg = { nombre: nombreTxt, mensaje: mensajeTxt, color: colorHexTxt };
-
                 if (nombreTxt.trim()) {
                     socket.emit('Evento-Mensaje-Server', JSON.stringify(jsonMsg));
                     $('#m').val('');
                 }
-
                 return false;
             });
 
             socket.on('Evento-Mensaje-Server', function (msg) {
                 var msgJson = JSON.parse(msg);
-                var mensajeDisplay = "<b style='color:" + msgJson.color + "'>" + msgJson.nombre + "</b>: " + msgJson.mensaje;
-                $('#messages').append($('<li>').html(mensajeDisplay));
+                var mensajeDisplay = `<span class='msg-username' style='color:${msgJson.color}'>${msgJson.nombre}</span>: ${msgJson.mensaje}`;
+                $('#messages').append($(`<li class="msg-${msgJson.nombre === $('#nombre').val() ? 'user' : 'other'}">`).html(mensajeDisplay));
                 $('.chat-container').scrollTop($('.chat-container')[0].scrollHeight);
             });
+
+            // Utilidades
+            function isValidURL(url) {
+                var pattern = new RegExp('^(https?:\\/\\/)?' +
+                    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' +
+                    '((\\d{1,3}\\.){3}\\d{1,3}))' +
+                    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+                    '(\\?[;&a-z\\d%_.~+=-]*)?' +
+                    '(\\#[-a-z\\d_]*)?$', 'i');
+                return !!pattern.test(url);
+            }
+
+            function detectMediaType(url) {
+                if (url.match(/\.(jpeg|jpg|gif|png)$/i)) return 'image';
+                else if (url.match(/\.(mp4|webm|ogg)$/i)) return 'video';
+                return 'text';
+            }
         });
     </script>
 </body>
