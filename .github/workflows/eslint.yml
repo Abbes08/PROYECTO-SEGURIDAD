@@ -34,9 +34,10 @@ jobs:
           SARIF_ESLINT_IGNORE_SUPPRESSED: "true"
         run: |
           npx eslint . \
-            --config .eslintrc.js \
-            --format @microsoft/eslint-formatter-sarif \
-            --output-file eslint-results.sarif
+          --config eslint.config.mjs \
+          --format @microsoft/eslint-formatter-sarif \
+          --output-file eslint-results.sarif
+        continue-on-error: true
 
       - name: Upload ESLint SARIF results
         uses: github/codeql-action/upload-sarif@v3
