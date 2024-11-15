@@ -1,0 +1,353 @@
+{
+  "version": "2.1.0",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.5",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "ESLint",
+          "informationUri": "https://eslint.org",
+          "rules": [
+            {
+              "id": "no-unused-vars",
+              "helpUri": "https://eslint.org/docs/latest/rules/no-unused-vars",
+              "properties": {},
+              "shortDescription": {
+                "text": "Disallow unused variables"
+              }
+            },
+            {
+              "id": "no-undef",
+              "helpUri": "https://eslint.org/docs/latest/rules/no-undef",
+              "properties": {},
+              "shortDescription": {
+                "text": "Disallow the use of undeclared variables unless mentioned in `/*global */` comments"
+              }
+            },
+            {
+              "id": "no-useless-escape",
+              "helpUri": "https://eslint.org/docs/latest/rules/no-useless-escape",
+              "properties": {},
+              "shortDescription": {
+                "text": "Disallow unnecessary escape characters"
+              }
+            }
+          ],
+          "version": "9.14.0"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/eslint.config.mjs"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/server.js"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/unalib/index.js"
+          }
+        }
+      ],
+      "results": [
+        {
+          "level": "error",
+          "message": {
+            "text": "'oidc' is assigned a value but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/server.js",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 5,
+                  "endLine": 38,
+                  "endColumn": 9
+                }
+              }
+            }
+          ],
+          "ruleId": "no-unused-vars",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'next' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/server.js",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 116,
+                  "startColumn": 25,
+                  "endLine": 116,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "ruleId": "no-unused-vars",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'describe' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 5,
+                  "endColumn": 9
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'describe' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 5,
+                  "endLine": 7,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'it' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 9,
+                  "endLine": 8,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'describe' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 5,
+                  "endLine": 14,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'it' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endLine": 15,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'describe' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 5,
+                  "endLine": 24,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'it' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 9,
+                  "endLine": 25,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'describe' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 5,
+                  "endLine": 34,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'it' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/test/test.js",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 9,
+                  "endLine": 35,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessary escape character: \\.."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/arian/PROYECTO-SEGURIDAD/unalib/index.js",
+                  "index": 3
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 52,
+                  "endLine": 8,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "ruleId": "no-useless-escape",
+          "ruleIndex": 2
+        }
+      ]
+    }
+  ]
+}
