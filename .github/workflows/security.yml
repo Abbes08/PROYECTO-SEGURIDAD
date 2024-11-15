@@ -8,14 +8,14 @@ on:
 
 jobs:
   docker_scan:
-    runs-on: ubuntu-latest  # Define el entorno en el que se ejecutará el job
-
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Descarga el código de tu repositorio
-
+        uses: actions/checkout@v2
+        
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1  # Configura Docker Buildx para construir la imagen
+        uses: docker/setup-buildx-action@v1
 
       - name: Build Docker image
-        run: docker build -t yo
+        run: docker buildx build -t yo .
+
