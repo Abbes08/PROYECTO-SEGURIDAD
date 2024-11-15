@@ -1,6 +1,5 @@
 // .eslintrc.js
 const globals = require("globals");
-const pluginJs = require("@eslint/js");
 
 module.exports = {
   env: {
@@ -17,8 +16,7 @@ module.exports = {
     ...globals.node
   },
   extends: [
-    "eslint:recommended",
-    pluginJs.configs.recommended // Configuración recomendada del plugin JS
+    "eslint:recommended"
   ],
   rules: {
     // Agrega aquí las reglas específicas que deseas activar
