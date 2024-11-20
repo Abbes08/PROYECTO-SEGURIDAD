@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install Node.js dependencies
         run: |
           npm install
@@ -34,6 +34,11 @@ jobs:
         with:
           target: http://localhost:3000/
           sarif-output: nuclei-results.sarif
+          args: -debug
+
+      - name: Validate SARIF file
+        run: |
+          curl -sL https://sarifvalidator.azurewebsites.net/api/validate -F "file=@nuclei-results.sarif"
 
       - name: Upload SARIF file for debugging
         uses: actions/upload-artifact@v4
@@ -53,6 +58,5 @@ jobs:
         with:
           name: nuclei.log
           path: nuclei.log
-
 
 
