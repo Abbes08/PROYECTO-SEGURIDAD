@@ -28,7 +28,7 @@ jobs:
       # Esperar a que el servidor esté activo
       - name: Wait for server to start
         run: |
-          timeout 15s bash -c 'until echo > /dev/tcp/localhost/3000; do sleep 1; done'
+          timeout 30s bash -c 'until echo > /dev/tcp/localhost/3000; do sleep 1; done'
 
       # Ejecución de Nuclei para escaneo de vulnerabilidades
       - name: Nuclei - Vulnerability Scan
@@ -36,22 +36,30 @@ jobs:
         uses: projectdiscovery/nuclei-action@main
         with:
           target: http://localhost:3000/
+          sarif-output: nuclei-results.sarif  # Habilitar la salida SARIF
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Subir el log como artefacto para revisar los resultados después de la ejecución
+      # Subir el archivo SARIF para depuración (opcional)
+      - name: Upload SARIF file for debugging
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuclei-results.sarif
+          path: nuclei-results.sarif
+
+      # Subir el archivo SARIF al tablero de seguridad
+      - name: GitHub Security Dashboard Alerts Update
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: nuclei-results.sarif  # Ruta correcta del archivo SARIF
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Subir el log como artefacto para revisión
       - name: GitHub Workflow Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: nuclei.log
           path: nuclei.log
 
-      # Actualizar el tablero de seguridad de GitHub con los resultados del escaneo
-      - name: GitHub Security Dashboard Alerts Update
-        uses: github/codeql-action/upload-sarif@v3
-        if: steps.nuclei_scan.outputs.sarif_exists == 'true'
-        with:
-          sarif_file: nuclei.sarif
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
