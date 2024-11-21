@@ -1,62 +1,69 @@
 name: Nuclei - Vulnerability Scan
 
 on:
-  push:
-    branches:
-      - main
-      - develop
-  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # Escaneo programado diario
+  workflow_dispatch:  # Permite ejecutar el workflow manualmente
 
 jobs:
   nuclei-scan:
     runs-on: ubuntu-latest
 
     steps:
+      # Paso para clonar el repositorio
       - uses: actions/checkout@v4
 
+      # Instalar dependencias de Node.js
       - name: Install Node.js dependencies
         run: |
           npm install
 
+      # Iniciar el servidor en segundo plano
       - name: Start server
         run: |
           npm start &
         env:
-          NODE_ENV: production
+          NODE_ENV: production  # Cambia esto según tus necesidades
 
+      # Esperar a que el servidor esté activo
       - name: Wait for server to start
         run: |
-          timeout 30s bash -c 'until echo > /dev/tcp/localhost/3000; do sleep 1; done'
+          timeout 15s bash -c 'until echo > /dev/tcp/localhost/3000; do sleep 1; done'
 
+      # Ejecución de Nuclei para escaneo de vulnerabilidades
       - name: Nuclei - Vulnerability Scan
         id: nuclei_scan
         uses: projectdiscovery/nuclei-action@main
         with:
           target: http://localhost:3000/
-          sarif-output: nuclei-results.sarif
-          args: -debug
-
-      - name: Validate SARIF file
-        run: |
-          curl -sL https://sarifvalidator.azurewebsites.net/api/validate -F "file=@nuclei-results.sarif"
-
-      - name: Upload SARIF file for debugging
-        uses: actions/upload-artifact@v4
-        with:
-          name: nuclei-results.sarif
-          path: nuclei-results.sarif
-
-      - name: GitHub Security Dashboard Alerts Update
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: nuclei-results.sarif
+          sarif_output: nuclei-results.sarif  # Generar archivo SARIF
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Verificar si el archivo SARIF existe
+      - name: Check SARIF file
+        id: check_sarif
+        run: |
+          if [ -f "nuclei-results.sarif" ]; then
+            echo "sarif_exists=true" >> $GITHUB_ENV
+          else
+            echo "sarif_exists=false" >> $GITHUB_ENV
+          fi
+
+      # Subir el log como artefacto para revisar los resultados después de la ejecución
       - name: GitHub Workflow Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: nuclei.log
           path: nuclei.log
+
+      # Actualizar el tablero de seguridad de GitHub con los resultados del escaneo
+      - name: GitHub Security Dashboard Alerts Update
+        uses: github/codeql-action/upload-sarif@v3
+        if: env.sarif_exists == 'true'
+        with:
+          sarif_file: nuclei-results.sarif
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
